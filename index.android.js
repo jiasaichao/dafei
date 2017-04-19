@@ -3,14 +3,20 @@
  * https://github.com/facebook/react-native
  * @flow
  */
+//全局变量
+global.__APP__ = true; 
+global.__ANDROID__ = false;
+global.__IOS__ = true;
 
-import React, { Component } from 'react';
+require('./src'); //自动指向src文件夹小写的js文件
+/*import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
   Text,
   View
 } from 'react-native';
+
 
 export default class dafei extends Component {
   render() {
@@ -50,4 +56,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('dafei', () => dafei);
+AppRegistry.registerComponent('dafei', () => dafei);*/
