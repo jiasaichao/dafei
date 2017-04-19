@@ -7,7 +7,9 @@ import {
     Image
 } from 'react-native';
 import { StackNavigator, TabNavigator, TabView } from 'react-navigation'; //导入StackNavigator
-
+import Swiper from 'react-native-swiper';
+var width = Dimensions.get('window').width
+var height = Dimensions.get('window').height
 //HomeScreen
 class HomeScreen1 extends React.Component {
     static navigationOptions = {
@@ -80,24 +82,92 @@ const SimpleAppHomeScreen = StackNavigator({
 class HomeScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: '首页',
-        tabBarIcon: ({ tintColor,focused }) => (
+        tabBarIcon: ({ tintColor, focused }) => (
             <Image
-                source={focused?require(`./assets/img/nav/zy_02.png`):require(`./assets/img/nav/zy_01.png`)}
+                source={focused ? require(`./assets/img/nav/zy_02.png`) : require(`./assets/img/nav/zy_01.png`)}
             />
         ),
         //{require('./assets/img/nav/zy_02.png')}
     }
     render() {
-        return <Text>List of recent chats</Text>
+        return <View>
+            <Swiper style={styles.container}
+                dot={<View style={styles.dot} />}
+                activeDot={<View style={styles.activeDot} />}
+                paginationStyle={styles.pagination}
+                loop={true}>
+                <View style={styles.slide}>
+                    <Image style={styles.image} source={require(`./assets/img/banner2.png`)} />
+                </View>
+                <View style={styles.slide}>
+                    <Image style={styles.image} source={require(`./assets/img/banner6.png`)} />
+                </View>
+            </Swiper>
+        </View>
     }
 }
+var styles = StyleSheet.create({
+  container: {
+    
+  },
 
+  slide: {
+    flex: 1
+  },
+
+  image: {
+    height:height,
+    width: width
+  },
+
+  dot: {
+    width: 14,
+    height: 14,
+    backgroundColor: 'transparent',
+    borderColor: '#ff6600',
+    borderRadius: 7,
+    borderWidth: 1,
+    marginLeft: 12,
+    marginRight: 12
+  },
+
+  activeDot: {
+    width: 14,
+    height: 14,
+    borderWidth: 1,
+    marginLeft: 12,
+    marginRight: 12,
+    borderRadius: 7,
+    borderColor: '#ee735c',
+    backgroundColor: '#ee735c',
+  },
+
+  pagination: {
+    bottom: 30
+  },
+
+  btn: {
+    position: 'absolute',
+    width: width - 20,
+    left: 10,
+    bottom: 60,
+    height: 50,
+    padding: 10,
+    backgroundColor: '#ee735c',
+    borderColor: '#ee735c',
+    borderWidth: 1,
+    textAlign: 'center',
+    fontSize: 18,
+    borderRadius: 3,
+    color: '#fff'
+  }
+})
 class AllContactsScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: '发现',
-        tabBarIcon: ({ tintColor,focused }) =>  <Image
-                source={focused?require(`./assets/img/nav/fx_02.png`):require(`./assets/img/nav/fx_01.png`)}
-            />
+        tabBarIcon: ({ tintColor, focused }) => <Image
+            source={focused ? require(`./assets/img/nav/fx_02.png`) : require(`./assets/img/nav/fx_01.png`)}
+        />
         ,
         //{require('./assets/img/nav/zy_02.png')}
     }
@@ -108,9 +178,9 @@ class AllContactsScreen extends React.Component {
 class ShopScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: '商城',
-        tabBarIcon: ({ tintColor,focused }) =>  <Image
-                source={focused?require(`./assets/img/nav/sc_02.png`):require(`./assets/img/nav/sc_01.png`)}
-            />
+        tabBarIcon: ({ tintColor, focused }) => <Image
+            source={focused ? require(`./assets/img/nav/sc_02.png`) : require(`./assets/img/nav/sc_01.png`)}
+        />
         ,
         //{require('./assets/img/nav/zy_02.png')}
     }
@@ -121,9 +191,9 @@ class ShopScreen extends React.Component {
 class MyScreen extends React.Component {
     static navigationOptions = {
         tabBarLabel: '我的',
-        tabBarIcon: ({ tintColor,focused }) =>  <Image
-                source={focused?require(`./assets/img/nav/wo_02.png`):require(`./assets/img/nav/wo_01.png`)}
-            />
+        tabBarIcon: ({ tintColor, focused }) => <Image
+            source={focused ? require(`./assets/img/nav/wo_02.png`) : require(`./assets/img/nav/wo_01.png`)}
+        />
         ,
         //{require('./assets/img/nav/zy_02.png')}
     }
