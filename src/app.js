@@ -4,10 +4,19 @@ import {
     Text,
     View,
     Button,
-    Image
+    Image,
+    Dimensions,
+    StyleSheet
 } from 'react-native';
 import { StackNavigator, TabNavigator, TabView } from 'react-navigation'; //导入StackNavigator
 import Swiper from 'react-native-swiper';
+import ViewPager from 'react-native-viewpager';
+
+const imgs = [  
+    require('./assets/img/banner2.png'),  
+    require('./assets/img/banner6.png'),  
+    require('./assets/img/banner14.jpg'),  
+];  
 var width = Dimensions.get('window').width
 var height = Dimensions.get('window').height
 //HomeScreen
@@ -80,6 +89,24 @@ const SimpleAppHomeScreen = StackNavigator({
 
 
 class HomeScreen extends React.Component {
+    constructor(props) {  
+	    super(props);  
+	    // 用于构建DataSource对象  
+	    var dataSource = new ViewPager.DataSource({  
+	        pageHasChanged: (p1, p2) => p1 !== p2,  
+	    });  
+	    // 实际的DataSources存放在state中  
+	    this.state = {  
+	        dataSource: dataSource.cloneWithPages(imgs)  
+	    }  
+    }  
+    renderPage(data, pageID) {  
+	    return (  
+	        <Image  
+	            source={data}  
+	            style={{width:width}}/>  
+	    );  
+    }  
     static navigationOptions = {
         tabBarLabel: '首页',
         tabBarIcon: ({ tintColor, focused }) => (
@@ -91,7 +118,8 @@ class HomeScreen extends React.Component {
     }
     render() {
         return <View>
-            <Swiper style={styles.container}
+            <ViewPager style={{height:130}} dataSource={this.state.dataSource} renderPage={this.renderPage} isLoop={true} autoPlay={true}/>
+            {/*<Swiper style={styles.container}
                 dot={<View style={styles.dot} />}
                 activeDot={<View style={styles.activeDot} />}
                 paginationStyle={styles.pagination}
@@ -102,7 +130,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.slide}>
                     <Image style={styles.image} source={require(`./assets/img/banner6.png`)} />
                 </View>
-            </Swiper>
+            </Swiper>*/}
         </View>
     }
 }

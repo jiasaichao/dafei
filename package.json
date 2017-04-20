@@ -10,6 +10,7 @@
     "react": "16.0.0-alpha.6",
     "react-native": "0.43.3",
     "react-native-swiper": "^1.5.4",
+    "react-native-viewpager": "^0.2.13",
     "react-navigation": "git+https://github.com/react-community/react-navigation.git#7165efce02a60eecc41813fe5e030883996671ec"
   },
   "devDependencies": {
