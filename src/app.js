@@ -6,17 +6,19 @@ import {
     Button,
     Image,
     Dimensions,
-    StyleSheet
+    StyleSheet,
+    TouchableOpacity,
+    ScrollView
 } from 'react-native';
 import { StackNavigator, TabNavigator, TabView } from 'react-navigation'; //导入StackNavigator
 import Swiper from 'react-native-swiper';
 import ViewPager from 'react-native-viewpager';
 
-const imgs = [  
-    require('./assets/img/banner2.png'),  
-    require('./assets/img/banner6.png'),  
-    require('./assets/img/banner14.jpg'),  
-];  
+const imgs = [
+    require('./assets/img/banner2.png'),
+    require('./assets/img/banner6.png'),
+    require('./assets/img/banner14.jpg'),
+];
 var width = Dimensions.get('window').width
 var height = Dimensions.get('window').height
 //HomeScreen
@@ -89,24 +91,24 @@ const SimpleAppHomeScreen = StackNavigator({
 
 
 class HomeScreen extends React.Component {
-    constructor(props) {  
-	    super(props);  
-	    // 用于构建DataSource对象  
-	    var dataSource = new ViewPager.DataSource({  
-	        pageHasChanged: (p1, p2) => p1 !== p2,  
-	    });  
-	    // 实际的DataSources存放在state中  
-	    this.state = {  
-	        dataSource: dataSource.cloneWithPages(imgs)  
-	    }  
-    }  
-    renderPage(data, pageID) {  
-	    return (  
-	        <Image  
-	            source={data}  
-	            style={{width:width}}/>  
-	    );  
-    }  
+    constructor(props) {
+        super(props);
+        // 用于构建DataSource对象  
+        var dataSource = new ViewPager.DataSource({
+            pageHasChanged: (p1, p2) => p1 !== p2,
+        });
+        // 实际的DataSources存放在state中  
+        this.state = {
+            dataSource: dataSource.cloneWithPages(imgs)
+        }
+    }
+    renderPage(data, pageID) {
+        return (
+            <Image
+                source={data}
+                style={{ width: width }} />
+        );
+    }
     static navigationOptions = {
         tabBarLabel: '首页',
         tabBarIcon: ({ tintColor, focused }) => (
@@ -117,78 +119,116 @@ class HomeScreen extends React.Component {
         //{require('./assets/img/nav/zy_02.png')}
     }
     render() {
-        return <View>
-            <ViewPager style={{height:130}} dataSource={this.state.dataSource} renderPage={this.renderPage} isLoop={true} autoPlay={true}/>
-            {/*<Swiper style={styles.container}
-                dot={<View style={styles.dot} />}
-                activeDot={<View style={styles.activeDot} />}
-                paginationStyle={styles.pagination}
-                loop={true}>
-                <View style={styles.slide}>
-                    <Image style={styles.image} source={require(`./assets/img/banner2.png`)} />
+        return (
+            <ScrollView>
+                <View style={{
+                    height: 250,
+                    overflow: 'hidden',
+                }}>
+                    {/*<ViewPager style={{height:130}} dataSource={this.state.dataSource} renderPage={this.renderPage} isLoop={true} autoPlay={true}/>*/}
+                    <Swiper style={styles.container}
+                        dot={<View style={styles.dot} />}
+                        activeDot={<View style={styles.activeDot} />}
+                        paginationStyle={styles.pagination}
+                        loop={true}
+                        autoplay={true}>
+                        <View style={styles.slide}>
+                            <Image style={styles.image} source={require(`./assets/img/banner2.png`)} />
+                        </View>
+                        <View style={styles.slide}>
+                            <Image style={styles.image} source={require(`./assets/img/banner6.png`)} />
+                        </View>
+                    </Swiper>
                 </View>
-                <View style={styles.slide}>
-                    <Image style={styles.image} source={require(`./assets/img/banner6.png`)} />
+                <View style={{flexDirection:'row',marginTop:20}}>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                        <View><Text>借款</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                        <View><Text>投资</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                        <View><Text>达分期</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                        <View style={{}}><Text>手机充值</Text></View>
+                    </TouchableOpacity>
                 </View>
-            </Swiper>*/}
-        </View>
+                <View>
+                    <Image style={{height:150,maxWidth:width}} source={require(`./assets/img/banner6.png`)} />
+                </View>
+            </ScrollView>)
     }
 }
 var styles = StyleSheet.create({
-  container: {
-    
-  },
+    gridC:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    },
+    gridImg:{
+        height:50,
+        width:50,
+        borderRadius:25
+    },
 
-  slide: {
-    flex: 1
-  },
+    container: {
+    },
 
-  image: {
-    height:height,
-    width: width
-  },
+    slide: {
+        flex: 1
+    },
 
-  dot: {
-    width: 14,
-    height: 14,
-    backgroundColor: 'transparent',
-    borderColor: '#ff6600',
-    borderRadius: 7,
-    borderWidth: 1,
-    marginLeft: 12,
-    marginRight: 12
-  },
+    image: {
+        height: 250,
+        width: width
+    },
 
-  activeDot: {
-    width: 14,
-    height: 14,
-    borderWidth: 1,
-    marginLeft: 12,
-    marginRight: 12,
-    borderRadius: 7,
-    borderColor: '#ee735c',
-    backgroundColor: '#ee735c',
-  },
+    dot: {
+        width: 14,
+        height: 14,
+        backgroundColor: 'transparent',
+        borderColor: '#ff6600',
+        borderRadius: 7,
+        borderWidth: 1,
+        marginLeft: 12,
+        marginRight: 12
+    },
 
-  pagination: {
-    bottom: 30
-  },
+    activeDot: {
+        width: 14,
+        height: 14,
+        borderWidth: 1,
+        marginLeft: 12,
+        marginRight: 12,
+        borderRadius: 7,
+        borderColor: '#ee735c',
+        backgroundColor: '#ee735c',
+    },
 
-  btn: {
-    position: 'absolute',
-    width: width - 20,
-    left: 10,
-    bottom: 60,
-    height: 50,
-    padding: 10,
-    backgroundColor: '#ee735c',
-    borderColor: '#ee735c',
-    borderWidth: 1,
-    textAlign: 'center',
-    fontSize: 18,
-    borderRadius: 3,
-    color: '#fff'
-  }
+    pagination: {
+        bottom: 530
+    },
+
+    btn: {
+        position: 'absolute',
+        width: width - 20,
+        left: 10,
+        bottom: 60,
+        height: 50,
+        padding: 10,
+        backgroundColor: '#ee735c',
+        borderColor: '#ee735c',
+        borderWidth: 1,
+        textAlign: 'center',
+        fontSize: 18,
+        borderRadius: 3,
+        color: '#fff'
+    }
 })
 class AllContactsScreen extends React.Component {
     static navigationOptions = {
