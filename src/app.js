@@ -111,6 +111,7 @@ class HomeScreen extends React.Component {
     }
     static navigationOptions = {
         tabBarLabel: '首页',
+        headerVisible: false,
         tabBarIcon: ({ tintColor, focused }) => (
             <Image
                 source={focused ? require(`./assets/img/nav/zy_02.png`) : require(`./assets/img/nav/zy_01.png`)}
@@ -140,7 +141,7 @@ class HomeScreen extends React.Component {
                         </View>
                     </Swiper>
                 </View>
-                <View style={{flexDirection:'row',marginTop:20}}>
+                <View style={{ flexDirection: 'row', marginTop: 20 }}>
                     <TouchableOpacity style={styles.gridC}>
                         <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
                         <View><Text>借款</Text></View>
@@ -159,21 +160,21 @@ class HomeScreen extends React.Component {
                     </TouchableOpacity>
                 </View>
                 <View>
-                    <Image style={{height:150,maxWidth:width}} source={require(`./assets/img/banner6.png`)} />
+                    <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner6.png`)} />
                 </View>
             </ScrollView>)
     }
 }
 var styles = StyleSheet.create({
-    gridC:{
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center'
+    gridC: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    gridImg:{
-        height:50,
-        width:50,
-        borderRadius:25
+    gridImg: {
+        height: 50,
+        width: 50,
+        borderRadius: 25
     },
 
     container: {
@@ -232,7 +233,16 @@ var styles = StyleSheet.create({
 })
 class AllContactsScreen extends React.Component {
     static navigationOptions = {
-        tabBarLabel: '发现',
+        title: '发现',
+        headerStyle: {
+            backgroundColor: '#FC761C',
+        },
+        headerTitleStyle:{
+            alignSelf:'center'
+        },
+        headerTintColor: '#fff',
+        // headerTitle:'sssss',
+        // tabBarLabel: '发现',
         tabBarIcon: ({ tintColor, focused }) => <Image
             source={focused ? require(`./assets/img/nav/fx_02.png`) : require(`./assets/img/nav/fx_01.png`)}
         />
@@ -240,12 +250,44 @@ class AllContactsScreen extends React.Component {
         //{require('./assets/img/nav/zy_02.png')}
     }
     render() {
-        return <Text>List of all contacts</Text>
+        return (
+            <ScrollView>
+                <View style={{ flexDirection: 'row',marginTop:20 }}>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/find_award.png`)} /></View>
+                        <View><Text>幸运转盘</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/calculator-ico.png`)} /></View>
+                        <View><Text>计算器</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_Chargeico.png`)} /></View>
+                        <View><Text>手机充值</Text></View>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row',marginTop:10 }}>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/autoInsurance_ico.png`)} /></View>
+                        <View><Text>车险查询</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/housesFund_ico.png`)} /></View>
+                        <View><Text>公积金查询</Text></View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.gridC}>
+                        <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_credit.png`)} /></View>
+                        <View><Text>卡包</Text></View>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        )
     }
 }
 class ShopScreen extends React.Component {
     static navigationOptions = {
-        tabBarLabel: '商城',
+        title: '商城',
+        // tabBarLabel: '商城',
         tabBarIcon: ({ tintColor, focused }) => <Image
             source={focused ? require(`./assets/img/nav/sc_02.png`) : require(`./assets/img/nav/sc_01.png`)}
         />
@@ -269,7 +311,6 @@ class MyScreen extends React.Component {
         return <Text>List of all contacts</Text>
     }
 }
-
 const MainScreenNavigator = TabNavigator(
     {
         Home: { screen: HomeScreen },
@@ -280,9 +321,16 @@ const MainScreenNavigator = TabNavigator(
     {
         tabBarComponent: TabView.TabBarBottom,
         tabBarPosition: 'bottom',
+        swipeEnabled: false,
+        lazyLoad: true,
+        animationEnabled: false,
         tabBarOptions: {
             activeTintColor: '#ff6600',
             inactiveTintColor: '#666',
         }
     });
-export default () => <MainScreenNavigator />;
+
+const SimpleApp = StackNavigator({
+    Home: { screen: MainScreenNavigator },
+});
+export default () => <SimpleApp />;
