@@ -93,76 +93,236 @@ const SimpleAppHomeScreen = StackNavigator({
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
-        // 用于构建DataSource对象  
-        var dataSource = new ViewPager.DataSource({
-            pageHasChanged: (p1, p2) => p1 !== p2,
-        });
-        // 实际的DataSources存放在state中  
         this.state = {
-            dataSource: dataSource.cloneWithPages(imgs)
+            tabImgs: [
+                {
+                    img1: require('./assets/img/nav/zy_01.png'),
+                    img2: require('./assets/img/nav/zy_02.png')
+                },
+                {
+                    img1: require('./assets/img/nav/fx_01.png'),
+                    img2: require('./assets/img/nav/fx_02.png')
+                },
+                {
+                    img1: require('./assets/img/nav/sc_01.png'),
+                    img2: require('./assets/img/nav/sc_02.png')
+                },
+                {
+                    img1: require('./assets/img/nav/wo_01.png'),
+                    img2: require('./assets/img/nav/wo_02.png')
+                }
+            ],
+            tabActive: 1
         }
     }
-    renderPage(data, pageID) {
-        return (
-            <Image
-                source={data}
-                style={{ width: width }} />
-        );
-    }
-    static navigationOptions = {
-        tabBarLabel: '首页',
-        headerVisible: false,
-        tabBarIcon: ({ tintColor, focused }) => (
-            <Image
-                source={focused ? require(`./assets/img/nav/zy_02.png`) : require(`./assets/img/nav/zy_01.png`)}
-            />
-        ),
+    static navigationOptions = ({ navigation }) => {
+        let headerVisible = false;
+        let title = '';
+        switch (navigation.state.params.tab) {
+            case 1:
+                headerVisible = false;
+                break;
+            case 2:
+                title = '发现';
+                headerVisible = true;
+                break;
+            case 3:
+                title = '商城';
+                headerVisible = true;
+                break;
+            case 4:
+                title = '我的';
+                headerVisible = true;
+                break;
+        }
+        return {
+            title: title,
+            headerStyle: {
+                backgroundColor: '#FC761C',
+            },
+            headerTitleStyle: {
+                alignSelf: 'center'
+            },
+            headerTintColor: '#fff',
+            headerVisible,
+        }
         //{require('./assets/img/nav/zy_02.png')}
     }
     render() {
+        let navigation = this.props.navigation;
+        let sl = {
+            s1: { flex: 1, alignItems: 'center' },
+            s2: { color: '#666' },
+            s2a: { color: '#ff6600' }
+        }
+        let content = <ScrollView style={{ flex: 1 }}>
+            <View style={{
+                height: 200,
+                overflow: 'hidden',
+            }}>
+                <Swiper style={styles.container}
+                    dot={<View style={styles.dot} />}
+                    activeDot={<View style={styles.activeDot} />}
+                    paginationStyle={styles.pagination}
+                    loop={true}
+                    autoplay={true}>
+                    <View style={styles.slide}>
+                        <Image style={styles.image} source={require(`./assets/img/banner2.png`)} />
+                    </View>
+                    <View style={styles.slide}>
+                        <Image style={styles.image} source={require(`./assets/img/banner6.png`)} />
+                    </View>
+                </Swiper>
+            </View>
+            <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                    <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                    <View><Text>借款</Text></View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                    <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                    <View><Text>投资</Text></View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                    <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                    <View><Text>达分期</Text></View>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                    <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
+                    <View style={{}}><Text>手机充值</Text></View>
+                </TouchableOpacity>
+            </View>
+            <View>
+                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner6.png`)} />
+            </View>
+        </ScrollView>;
+        switch (this.state.tabActive) {
+            case 2:
+                content = <ScrollView>
+                    <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                        <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/find_award.png`)} /></View>
+                            <View><Text>幸运转盘</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/calculator-ico.png`)} /></View>
+                            <View><Text>计算器</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC} onPress={() => { navigation.navigate('ShiMing') }}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_Chargeico.png`)} /></View>
+                            <View><Text>手机充值</Text></View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/autoInsurance_ico.png`)} /></View>
+                            <View><Text>车险查询</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/housesFund_ico.png`)} /></View>
+                            <View><Text>公积金查询</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_credit.png`)} /></View>
+                            <View><Text>卡包</Text></View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+                break;
+            case 3:
+                content = <ScrollView>
+                    
+            <View>
+                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner6.png`)} />
+            </View>
+            <View>
+                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner2.png`)} />
+            </View>
+            <View>
+                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner14.jpg`)} />
+            </View>
+            <View>
+                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner2.png`)} />
+            </View>
+                </ScrollView>
+                break;
+            case 4:
+                content = <ScrollView>
+                    <View style={{ flexDirection: 'row', marginTop: 20 }}>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/find_award.png`)} /></View>
+                            <View><Text>幸运转盘</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/calculator-ico.png`)} /></View>
+                            <View><Text>计算器</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_Chargeico.png`)} /></View>
+                            <View><Text>手机充值</Text></View>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/autoInsurance_ico.png`)} /></View>
+                            <View><Text>车险查询</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/housesFund_ico.png`)} /></View>
+                            <View><Text>公积金查询</Text></View>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gridC}>
+                            <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_credit.png`)} /></View>
+                            <View><Text>卡包</Text></View>
+                        </TouchableOpacity>
+                    </View>
+                </ScrollView>
+                break;
+        }
         return (
-            <ScrollView>
-                <View style={{
-                    height: 250,
-                    overflow: 'hidden',
-                }}>
-                    {/*<ViewPager style={{height:130}} dataSource={this.state.dataSource} renderPage={this.renderPage} isLoop={true} autoPlay={true}/>*/}
-                    <Swiper style={styles.container}
-                        dot={<View style={styles.dot} />}
-                        activeDot={<View style={styles.activeDot} />}
-                        paginationStyle={styles.pagination}
-                        loop={true}
-                        autoplay={true}>
-                        <View style={styles.slide}>
-                            <Image style={styles.image} source={require(`./assets/img/banner2.png`)} />
-                        </View>
-                        <View style={styles.slide}>
-                            <Image style={styles.image} source={require(`./assets/img/banner6.png`)} />
-                        </View>
-                    </Swiper>
-                </View>
-                <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                    <TouchableOpacity style={styles.gridC}>
-                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
-                        <View><Text>借款</Text></View>
+            <View style={{ height: '100%' }}>
+                {content}
+                <View style={{ height: 52, backgroundColor: '#f7f7f7', flexDirection: 'row' }}>
+                    <TouchableOpacity style={sl.s1} onPress={() => { navigation.setParams({ tab: 1 }); this.setState({ tabActive: 1 }) }}>
+                        <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 1 ? this.state.tabImgs[0].img2 : this.state.tabImgs[0].img1} />
+                        <Text style={this.state.tabActive == 1 ? sl.s2a : sl.s2}>首页</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.gridC}>
-                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
-                        <View><Text>投资</Text></View>
+                    <TouchableOpacity style={sl.s1} onPress={() => { navigation.setParams({ tab: 2 }); this.setState({ tabActive: 2 }) }}>
+                        <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 2 ? this.state.tabImgs[1].img2 : this.state.tabImgs[0].img1} />
+                        <Text style={this.state.tabActive == 2 ? sl.s2a : sl.s2}>发现</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.gridC}>
-                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
-                        <View><Text>达分期</Text></View>
+                    <TouchableOpacity style={sl.s1} onPress={() => { navigation.setParams({ tab: 3 });  this.setState({ tabActive: 3 }) }}>
+                        <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 3 ? this.state.tabImgs[2].img2 : this.state.tabImgs[0].img1} />
+                        <Text style={this.state.tabActive == 3 ? sl.s2a : sl.s2}>商城</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.gridC}>
-                        <View><Image style={styles.gridImg} source={require(`./assets/img/banner6.png`)} /></View>
-                        <View style={{}}><Text>手机充值</Text></View>
+                    <TouchableOpacity style={sl.s1} onPress={() => {  navigation.setParams({ tab: 4 }); this.setState({ tabActive: 4 }) }}>
+                        <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 4 ? this.state.tabImgs[3].img2 : this.state.tabImgs[0].img1} />
+                        <Text style={this.state.tabActive == 4 ? sl.s2a : sl.s2}>我的</Text>
                     </TouchableOpacity>
                 </View>
-                <View>
-                    <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner6.png`)} />
-                </View>
-            </ScrollView>)
+            </View>
+        )
+    }
+}
+
+class ShiMingScreen extends React.Component {
+    static navigationOptions = {
+        title: '实名认证',
+        headerStyle: {
+            backgroundColor: '#FC761C',
+        },
+        // headerTitleStyle: {
+        //     alignSelf: 'center',
+        // },
+        headerTintColor: '#fff',
+    }
+    render() {
+        return <ScrollView>
+            <Image style={{ height: 50, width: 50, alignSelf: "center", marginTop: 100 }} source={require(`./assets/img/api_mark.png`)} />
+            <Text style={{ alignSelf: "center", marginTop: 20, fontSize: 15 }}>很抱歉通知您，您还未进行实名认证！</Text>
+            <Text style={{ alignSelf: "center", marginTop: 50, fontSize: 15 }}>请致电：400-625-9898</Text>
+            <TouchableOpacity style={{ alignSelf: "center", marginTop: 60, width: 270, height: 54, backgroundColor: '#FC651C', justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}><Text style={{ color: '#fff', fontSize: 17 }}>去认证</Text></TouchableOpacity>
+        </ScrollView>
     }
 }
 var styles = StyleSheet.create({
@@ -185,7 +345,7 @@ var styles = StyleSheet.create({
     },
 
     image: {
-        height: 250,
+        height: 200,
         width: width
     },
 
@@ -237,8 +397,8 @@ class AllContactsScreen extends React.Component {
         headerStyle: {
             backgroundColor: '#FC761C',
         },
-        headerTitleStyle:{
-            alignSelf:'center'
+        headerTitleStyle: {
+            alignSelf: 'center'
         },
         headerTintColor: '#fff',
         // headerTitle:'sssss',
@@ -252,7 +412,7 @@ class AllContactsScreen extends React.Component {
     render() {
         return (
             <ScrollView>
-                <View style={{ flexDirection: 'row',marginTop:20 }}>
+                <View style={{ flexDirection: 'row', marginTop: 20 }}>
                     <TouchableOpacity style={styles.gridC}>
                         <View><Image style={styles.gridImg} source={require(`./assets/img/find_award.png`)} /></View>
                         <View><Text>幸运转盘</Text></View>
@@ -266,7 +426,7 @@ class AllContactsScreen extends React.Component {
                         <View><Text>手机充值</Text></View>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row',marginTop:10 }}>
+                <View style={{ flexDirection: 'row', marginTop: 10 }}>
                     <TouchableOpacity style={styles.gridC}>
                         <View><Image style={styles.gridImg} source={require(`./assets/img/autoInsurance_ico.png`)} /></View>
                         <View><Text>车险查询</Text></View>
@@ -331,6 +491,13 @@ const MainScreenNavigator = TabNavigator(
     });
 
 const SimpleApp = StackNavigator({
-    Home: { screen: MainScreenNavigator },
-});
+    Home: { screen: HomeScreen },
+    ShiMing: { screen: ShiMingScreen }
+},
+    {
+        initialRouteName: 'Home',
+        initialRouteParams: {
+            tab: 1
+        }
+    });
 export default () => <SimpleApp />;
