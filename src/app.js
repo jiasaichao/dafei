@@ -231,49 +231,53 @@ class HomeScreen extends React.Component {
                 break;
             case 3:
                 content = <ScrollView>
-                    
-            <View>
-                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner6.png`)} />
-            </View>
-            <View>
-                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner2.png`)} />
-            </View>
-            <View>
-                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner14.jpg`)} />
-            </View>
-            <View>
-                <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner2.png`)} />
-            </View>
+
+                    <View>
+                        <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner6.png`)} />
+                    </View>
+                    <View>
+                        <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner2.png`)} />
+                    </View>
+                    <View>
+                        <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner14.jpg`)} />
+                    </View>
+                    <View>
+                        <Image style={{ height: 150, maxWidth: width }} source={require(`./assets/img/banner2.png`)} />
+                    </View>
                 </ScrollView>
                 break;
             case 4:
                 content = <ScrollView>
-                    <View style={{ flexDirection: 'row', marginTop: 20 }}>
-                        <TouchableOpacity style={styles.gridC}>
-                            <View><Image style={styles.gridImg} source={require(`./assets/img/find_award.png`)} /></View>
-                            <View><Text>幸运转盘</Text></View>
+                    <View style={{ marginTop: 20 }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate('ShiMing') }} style={{ height: 44, backgroundColor: '#fff', alignItems: 'center', flexDirection: 'row', paddingRight: 15, paddingLeft: 15, width: '100%', marginBottom: 15 }}>
+                            <Image style={{width:20,height:20,marginRight:11}} source={require(`./assets/img/myInvest.png`)}/>
+                            <Text>我的投资</Text>
+                            <View style={{ flex: 1 }}></View>
+                            <Image style={{ width: 13.5, height: 13.5 }} source={require(`./assets/img/api_Arrow.png`)} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.gridC}>
-                            <View><Image style={styles.gridImg} source={require(`./assets/img/calculator-ico.png`)} /></View>
-                            <View><Text>计算器</Text></View>
+                        <TouchableOpacity onPress={() => { navigation.navigate('ShiMing') }} style={{ height: 44, backgroundColor: '#fff', alignItems: 'center', flexDirection: 'row', paddingRight: 15, paddingLeft: 15, width: '100%', marginBottom: 15 }}>
+                            <Image style={{width:20,height:20,marginRight:11}} source={require(`./assets/img/myBorrow.png`)}/>
+                            <Text>我的借款</Text>
+                            <View style={{ flex: 1 }}></View>
+                            <Image style={{ width: 13.5, height: 13.5 }} source={require(`./assets/img/api_Arrow.png`)} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.gridC}>
-                            <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_Chargeico.png`)} /></View>
-                            <View><Text>手机充值</Text></View>
+                        <TouchableOpacity onPress={() => { navigation.navigate('ShiMing') }} style={{ height: 44, backgroundColor: '#fff', alignItems: 'center', flexDirection: 'row', paddingRight: 15, paddingLeft: 15, width: '100%', marginBottom: 15 }}>
+                            <Image style={{width:20,height:20,marginRight:11}} source={require(`./assets/img/myMessage.png`)}/>
+                            <Text>交易记录</Text>
+                            <View style={{ flex: 1 }}></View>
+                            <Image style={{ width: 13.5, height: 13.5 }} source={require(`./assets/img/api_Arrow.png`)} />
                         </TouchableOpacity>
-                    </View>
-                    <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                        <TouchableOpacity style={styles.gridC}>
-                            <View><Image style={styles.gridImg} source={require(`./assets/img/autoInsurance_ico.png`)} /></View>
-                            <View><Text>车险查询</Text></View>
+                        <TouchableOpacity onPress={() => { navigation.navigate('ShiMing') }} style={{ height: 44, backgroundColor: '#fff', alignItems: 'center', flexDirection: 'row', paddingRight: 15, paddingLeft: 15, width: '100%', marginBottom: 15 }}>
+                            <Image style={{width:20,height:20,marginRight:11}} source={require(`./assets/img/myMallOrder.png`)}/>
+                            <Text>商城订单</Text>
+                            <View style={{ flex: 1 }}></View>
+                            <Image style={{ width: 13.5, height: 13.5 }} source={require(`./assets/img/api_Arrow.png`)} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.gridC}>
-                            <View><Image style={styles.gridImg} source={require(`./assets/img/housesFund_ico.png`)} /></View>
-                            <View><Text>公积金查询</Text></View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.gridC}>
-                            <View><Image style={styles.gridImg} source={require(`./assets/img/dafy_credit.png`)} /></View>
-                            <View><Text>卡包</Text></View>
+                        <TouchableOpacity onPress={() => { navigation.navigate('ShiMing') }} style={{ height: 44, backgroundColor: '#fff', alignItems: 'center', flexDirection: 'row', paddingRight: 15, paddingLeft: 15, width: '100%', marginBottom: 15 }}>
+                            <Image style={{width:20,height:20,marginRight:11}} source={require(`./assets/img/myCard.png`)}/>
+                            <Text>我的卡卷</Text>
+                            <View style={{ flex: 1 }}></View>
+                            <Image style={{ width: 13.5, height: 13.5 }} source={require(`./assets/img/api_Arrow.png`)} />
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
@@ -291,11 +295,11 @@ class HomeScreen extends React.Component {
                         <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 2 ? this.state.tabImgs[1].img2 : this.state.tabImgs[0].img1} />
                         <Text style={this.state.tabActive == 2 ? sl.s2a : sl.s2}>发现</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={sl.s1} onPress={() => { navigation.setParams({ tab: 3 });  this.setState({ tabActive: 3 }) }}>
+                    <TouchableOpacity style={sl.s1} onPress={() => { navigation.setParams({ tab: 3 }); this.setState({ tabActive: 3 }) }}>
                         <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 3 ? this.state.tabImgs[2].img2 : this.state.tabImgs[0].img1} />
                         <Text style={this.state.tabActive == 3 ? sl.s2a : sl.s2}>商城</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={sl.s1} onPress={() => {  navigation.setParams({ tab: 4 }); this.setState({ tabActive: 4 }) }}>
+                    <TouchableOpacity style={sl.s1} onPress={() => { navigation.setParams({ tab: 4 }); this.setState({ tabActive: 4 }) }}>
                         <Image style={{ height: 26, width: 26 }} source={this.state.tabActive == 4 ? this.state.tabImgs[3].img2 : this.state.tabImgs[0].img1} />
                         <Text style={this.state.tabActive == 4 ? sl.s2a : sl.s2}>我的</Text>
                     </TouchableOpacity>
